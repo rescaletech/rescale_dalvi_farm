@@ -1,5 +1,6 @@
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/account/screens/account_screen.dart';
+import 'package:dalvi/features/cart/screens/cart_screen.dart';
 import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeScreen(),
     const AccountScreen(),
-    const Center(
-      child: Text('Cart Page'),
-    ),
+    const CartScreen(),
   ];
 
   void updatePage(int page) {
