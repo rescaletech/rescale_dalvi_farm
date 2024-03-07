@@ -1,5 +1,6 @@
 import 'package:dalvi/common/widgets/custom_button.dart';
 import 'package:dalvi/constants/global_variables.dart';
+import 'package:dalvi/features/address/screens/address_screen.dart';
 import 'package:dalvi/features/cart/widgets/cart_product.dart';
 import 'package:dalvi/features/cart/widgets/cart_subtotal.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -18,6 +19,14 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  void navigateToAddress(int sum) {
+    Navigator.pushNamed(
+      context,
+      AddressScreen.routeName,
+      arguments: sum.toString(),
+    );
   }
 
   @override
@@ -103,8 +112,8 @@ class _CartScreenState extends State<CartScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
-                text: "Proceed to Buy (${user.cart.length} items)",
-                onTap: () {},
+                text: 'Proceed to Buy (${user.cart.length} items)',
+                onTap: () => navigateToAddress(sum),
                 color: Colors.yellow[600],
               ),
             ),
@@ -113,7 +122,7 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.black12.withOpacity(0.08),
               height: 1,
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 5),
             ListView.builder(
               itemCount: user.cart.length,
               shrinkWrap: true,
