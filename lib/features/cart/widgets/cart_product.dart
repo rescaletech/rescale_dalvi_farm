@@ -7,14 +7,17 @@ import 'package:provider/provider.dart';
 
 class CartProduct extends StatefulWidget {
   final int index;
-  const CartProduct({super.key, required this.index});
+  const CartProduct({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
   @override
   State<CartProduct> createState() => _CartProductState();
 }
 
 class _CartProductState extends State<CartProduct> {
-    final ProductDetailsServices productDetailsServices =
+  final ProductDetailsServices productDetailsServices =
       ProductDetailsServices();
   final CartServices cartServices = CartServices();
 
@@ -41,12 +44,14 @@ class _CartProductState extends State<CartProduct> {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
           child: Row(
             children: [
               Image.network(
                 product.images[0],
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.contain,
                 height: 135,
                 width: 135,
               ),
@@ -70,24 +75,29 @@ class _CartProductState extends State<CartProduct> {
                       '\$${product.price}',
                       style: const TextStyle(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
                       ),
                       maxLines: 2,
                     ),
                   ),
                   Container(
                     width: 235,
+                    padding: const EdgeInsets.only(left: 10),
+                    child: const Text('Eligible for FREE Shipping'),
+                  ),
+                  Container(
+                    width: 235,
                     padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: Text(
+                    child: const Text(
                       'In Stock',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.teal,
                       ),
                       maxLines: 2,
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
