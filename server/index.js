@@ -10,7 +10,7 @@ const adminRouter = require('./routes/admin.js');
 //  INIT
 const PORT = 3000;
 const app = express();
-const DB = "mongodb+srv://tejaavvaru:wR9Feyd68btYUKzz@cluster0.inave8c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const DB = "mongodb+srv://rajmanbind3535:FuCAVzw1GxtDWSUE@cluster0.g0b73gw.mongodb.net/myDataBase?retryWrites=true&w=majority"
 
 // middleware
 app.use(express.json());

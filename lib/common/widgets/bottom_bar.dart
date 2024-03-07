@@ -6,6 +6,7 @@ import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
+
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
   const BottomBar({super.key});
@@ -18,7 +19,6 @@ class _BottomBarState extends State<BottomBar> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
-
 
   List<Widget> pages = [
     const HomeScreen(),
@@ -52,9 +52,9 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == 0 
-                      ? GlobalVariables.selectedNavBarColor 
-                      : GlobalVariables.backgroundColor,
+                    color: _page == 0
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
                 ),
@@ -72,9 +72,9 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == 1 
-                      ? GlobalVariables.selectedNavBarColor 
-                      : GlobalVariables.backgroundColor,
+                    color: _page == 1
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
                 ),
@@ -92,19 +92,19 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == 2 
-                      ? GlobalVariables.selectedNavBarColor 
-                      : GlobalVariables.backgroundColor,
+                    color: _page == 2
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
                 ),
               ),
               child: badges.Badge(
                 badgeContent: Text(userCartLen.toString()),
-                badgeStyle:badges.BadgeStyle(
-                  badgeColor:  Colors.white,
+                badgeStyle: const badges.BadgeStyle(
+                  badgeColor: Colors.white,
                   elevation: 0,
-                  ),
+                ),
                 child: const Icon(
                   Icons.shopping_cart_outlined,
                 ),

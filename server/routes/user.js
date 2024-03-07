@@ -1,7 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
-const auth = require('../middlewares/auth');
-const { Product } = require("../models/product");
+const auth = require('../middlewares/auth.js');
+const { Product } = require("../models/product.js");
+const User = require("../models/user.js");
 
 userRouter.post("/api/add-to-cart", auth, async (req, res) => {
     try {

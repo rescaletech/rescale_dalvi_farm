@@ -23,6 +23,11 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserProvider>().user;
+    int sum = 0;
+    user.cart
+        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
+        .toList();
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -104,7 +109,7 @@ class _CartScreenState extends State<CartScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
-                text: "Proceed to Buy(${user.cart.length} items)", 
+                text: "Proceed to Buy (${user.cart.length} items)",
                 onTap: () {},
                 color: Colors.yellow[600],
               ),
@@ -117,11 +122,13 @@ class _CartScreenState extends State<CartScreen> {
             const SizedBox(height: 15),
             ListView.builder(
               itemCount: user.cart.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return CartProduct(
                   index: index,
                 );
-              },)
+              },
+            ),
           ],
         ),
       ),
