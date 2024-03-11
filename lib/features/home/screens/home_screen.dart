@@ -25,7 +25,6 @@
 //   }
 // }
 
-
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
 import 'package:dalvi/features/home/widgets/carousel_image.dart';
@@ -102,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 1,
                           ),
                         ),
-                        hintText: 'Search Dalvi...',
+                        hintText: 'Search Mango...',
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -116,9 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
-          children: const [
+          children: [
             AddressBox(),
             SizedBox(height: 10),
             TopCategories(),

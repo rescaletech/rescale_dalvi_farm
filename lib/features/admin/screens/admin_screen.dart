@@ -76,6 +76,7 @@ class _AdminScreenState extends State<AdminScreen> {
         items: [
           // Post
           BottomNavigationBarItem(
+            tooltip: "Products",
             icon: Container(
               width: bottomNavigationBarWidth,
               decoration: BoxDecoration(
@@ -94,7 +95,7 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
             label: '',
           ),
-          // ACCOUNT
+          // Analytics
           BottomNavigationBarItem(
             icon: Container(
               width: bottomNavigationBarWidth,
@@ -116,6 +117,7 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
           //Order
           BottomNavigationBarItem(
+            tooltip: "Orders",
             icon: Container(
               width: bottomNavigationBarWidth,
               decoration: BoxDecoration(

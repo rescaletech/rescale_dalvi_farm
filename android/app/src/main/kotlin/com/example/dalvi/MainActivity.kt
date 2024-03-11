@@ -1,4 +1,4 @@
-package com.example.dalvi
+package com.rescale.dalvi
 
 import io.flutter.embedding.android.FlutterActivity
 

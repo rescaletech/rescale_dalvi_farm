@@ -1,12 +1,8 @@
-// import 'package:dalvi/common/widgets/custom_button.dart';
-import 'package:dalvi/common/widgets/custom_button.dart';
 import 'package:dalvi/common/widgets/custom_textfield.dart';
 import 'package:dalvi/constants/global_variables.dart';
-import 'package:dalvi/constants/utils.dart';
 import 'package:dalvi/features/address/services/address_services.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
 
 class AddressScreen extends StatefulWidget {
@@ -29,22 +25,20 @@ class _AddressScreenState extends State<AddressScreen> {
   final _addressFormKey = GlobalKey<FormState>();
 
   String addressToBeUsed = "";
-  List<PaymentItem> paymentItems = [];
+  // List<PaymentItem> paymentItems = [];
   final AddressServices addressServices = AddressServices();
 
-  @override
-  void initState() {
-    super.initState();
-    paymentItems.add(
-      PaymentItem(
-        amount: widget.totalAmount,
-        label: 'Total Amount',
-        status: PaymentItemStatus.final_price,
-      ),
-    );
+  String? payment =
+      "CashOnDelivery"; // Initial value for the radio button group
+
+// Function to handle radio button changes
+  void _handleRadioValueChange(String? value) {
+    setState(() {
+      payment = value; // Update the selected value
+    });
   }
 
-  void cashOnDelivery(res) {
+  void cashOnDelivery() {
     if (Provider.of<UserProvider>(context, listen: false)
         .user
         .address
@@ -57,21 +51,17 @@ class _AddressScreenState extends State<AddressScreen> {
       address: addressToBeUsed,
       totalSum: double.parse(widget.totalAmount),
     );
-  }
+    // Navigator.pushNamed(
+    //   context,
+    //   HomeScreen.routeName,
+    // );
 
-  void onGooglePayResult(res) {
-    if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty) {
-      addressServices.saveUserAddress(
-          context: context, address: addressToBeUsed);
-    }
-    addressServices.placeOrder(
-      context: context,
-      address: addressToBeUsed,
-      totalSum: double.parse(widget.totalAmount),
-    );
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   // Navigate to another page
+    //   Navigator.of(context).push(
+    //     MaterialPageRoute(builder: (context) => const AccountScreen()),
+    //   );
+    // });
   }
 
   @override
@@ -101,7 +91,8 @@ class _AddressScreenState extends State<AddressScreen> {
     } else if (addressFromProvider.isNotEmpty) {
       addressToBeUsed = addressFromProvider;
     } else {
-      showSnackBar(context, 'ERROR');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Error")));
     }
   }
 
@@ -183,30 +174,28 @@ class _AddressScreenState extends State<AddressScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-
-              //
-              CustomButton(text: "Proceed", onTap: () {}),
-              // GooglePayButton(
-              //   onPressed: () => payPressed(address),
-              //   paymentConfigurationAsset: 'gpay.json',
-              //   onPaymentResult: onGooglePayResult,
-              //   paymentItems: paymentItems,
-              //   height: 50,
-              //   style: GooglePayButtonStyle.black,
-              //   type: GooglePayButtonType.buy,
-              //   margin: const EdgeInsets.only(top: 15),
-              //   loadingIndicator: const Center(
-              //     child: CircularProgressIndicator(),
-              //   ),
-              // ),
-
-              // GooglePayButton(
-              //   // paymentConfiguration: paymentConfiguration,
-              //   onPressed: () => payPressed(address),
-              //   paymentItems: paymentItems,
-              //   onPaymentResult: onGooglePayResult,
-              //   height: 50,
-              // ),
+              ListTile(
+                tileColor: GlobalVariables.greyBackgroundCOlor,
+                title: const Text(
+                  'Cash On Delivery',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                leading: Radio(
+                  activeColor: GlobalVariables.secondaryColor,
+                  value: "CashOnDelivery", // Value for this radio button
+                  groupValue: payment, // Current selected value in the group
+                  onChanged: _handleRadioValueChange, // Callback function
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () => {
+                        payPressed(address),
+                        cashOnDelivery(),
+                      },
+                  child: const Text("Place Order"))
             ],
           ),
         ),

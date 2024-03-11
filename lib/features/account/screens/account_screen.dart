@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:dalvi/features/account/widgets/below_app_bar.dart';
 import 'package:dalvi/features/account/widgets/top_buttons.dart';
 
-
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
@@ -24,11 +23,13 @@ class AccountScreen extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.topLeft,
-                child: Image.asset(
-                  'assets/images/amazon_in.png',
-                  width: 120,
-                  height: 45,
-                  color: Colors.black,
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/images/dalviFarm.jpg',
+                    width: 45,
+                    height: 45,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Container(

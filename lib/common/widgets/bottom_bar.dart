@@ -87,6 +87,7 @@ class _BottomBarState extends State<BottomBar> {
           ),
           // CART
           BottomNavigationBarItem(
+            // tooltip: "Cart",
             icon: Container(
               width: bottomBarWidth,
               decoration: BoxDecoration(
@@ -99,14 +100,19 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 ),
               ),
-              child: badges.Badge(
-                badgeContent: Text(userCartLen.toString()),
-                badgeStyle: const badges.BadgeStyle(
-                  badgeColor: Colors.white,
-                  elevation: 0,
-                ),
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
+              child: Center(
+                child: badges.Badge(
+                  badgeContent: Text(
+                    userCartLen.toString(),
+                  ),
+                  position: badges.BadgePosition.topEnd(top: -15, end: -15),
+                  badgeStyle: const badges.BadgeStyle(
+                    badgeColor: Colors.white,
+                    elevation: 0,
+                  ),
+                  child: const Icon(
+                    Icons.shopping_cart_outlined,
+                  ),
                 ),
               ),
             ),

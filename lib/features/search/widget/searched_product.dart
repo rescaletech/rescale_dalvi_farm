@@ -38,9 +38,7 @@ class SearchedProduct extends StatelessWidget {
                     child: Text(
                       '\$${product.price}',
                       style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ),
+                          fontSize: 20, fontWeight: FontWeight.bold),
                       maxLines: 2,
                     ),
                   ),

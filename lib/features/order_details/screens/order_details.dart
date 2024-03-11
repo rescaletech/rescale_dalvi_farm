@@ -5,8 +5,8 @@ import 'package:dalvi/features/search/screens/search_screen.dart';
 import 'package:dalvi/models/order.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const String routeName = '/order-details';
@@ -21,7 +21,6 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-  // DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
   int currentStep = 0;
   final AdminServices adminServices = AdminServices();
 

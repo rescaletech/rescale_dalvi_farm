@@ -25,11 +25,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   void addToCart() {
     productDetailsServices.addToCart(
-      context: context, 
+      context: context,
       product: widget.product,
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +85,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             width: 1,
                           ),
                         ),
-                        hintText: 'Search Amazon.in',
+                        hintText: 'Search Mango...',
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -155,23 +155,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(8),
               child: RichText(
                 text: TextSpan(
-                  text:  'Deal Price: ',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: [
-                    TextSpan(
-                      text:  '\$${widget.product.price}',
-                      style: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.red,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    text: 'Deal Price: ',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ]
-                ),
+                    children: [
+                      TextSpan(
+                        text: '\$${widget.product.price}',
+                        style: const TextStyle(
+                          fontSize: 22,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ]),
               ),
             ),
             Padding(
@@ -185,15 +184,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: CustomButton(
-                text: 'Buy Now', 
-                onTap: (){},
+                text: 'Buy Now',
+                onTap: () {},
               ),
             ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: CustomButton(
-                text: 'Add to Cart', 
+                text: 'Add to Cart',
                 onTap: addToCart,
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
