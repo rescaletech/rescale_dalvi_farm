@@ -8,7 +8,7 @@ const userRouter = require("./routes/user.js");
 const adminRouter = require("./routes/admin.js");
 const cors = require("cors");
 //  INIT
-const PORT = 3000;
+const PORT = 5000;
 const app = express();
 const DB =
   "mongodb+srv://rajmanbind3535:FuCAVzw1GxtDWSUE@cluster0.g0b73gw.mongodb.net/myDataBase?retryWrites=true&w=majority";
