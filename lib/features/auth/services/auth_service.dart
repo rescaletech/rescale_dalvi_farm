@@ -11,8 +11,6 @@ import 'package:dalvi/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class AuthService {
   // signup user
   void signUpUser({
@@ -95,13 +93,13 @@ class AuthService {
 
   //  get user data
   void getUserData(
-      BuildContext context,
+    BuildContext context,
   ) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
 
-      if(token == null) {
+      if (token == null) {
         prefs.setString('x-auth-token', '');
       }
 
@@ -115,7 +113,7 @@ class AuthService {
 
       var response = jsonDecode(tokenRes.body);
 
-      if(response == true) {
+      if (response == true) {
         http.Response userRes = await http.get(
           Uri.parse('$uri/'),
           headers: <String, String>{
@@ -130,6 +128,4 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
-
-
 }
