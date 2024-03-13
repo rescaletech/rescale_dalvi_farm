@@ -1,6 +1,6 @@
 # dalvi
 
-A new Flutter project.
+Dalvi Agro - Organic mangoes from Chiplun with latest technology
 
 ## Getting Started
 
