@@ -4,7 +4,16 @@ A new Flutter project.
 
 ## Getting Started
 
-E-Commerce Application using flutter
+### E-Commerce Application using flutter
+# Architecture
+- [Flutter] (https://flutter.dev/)
+- [nodejs] (https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
+- [Headless CMS Sanity.io] (https://www.sanity.io/)
+- mongodb
+- [Cloudinary] (https://cloudinary.com/blog/)
+- # Tools
+  - VSCode
+  - Android Studio
 
 A few resources to get you started if this is your first Flutter project:
 
