@@ -1,6 +1,7 @@
 import 'package:dalvi/common/widgets/custom_textfield.dart';
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/address/services/address_services.dart';
+import 'package:dalvi/features/thankyou/thankyou.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,11 +39,17 @@ class _AddressScreenState extends State<AddressScreen> {
     });
   }
 
+  void navigateToThankYouPage() {
+    Navigator.pushNamed(context, ThankYouPage.routeName);
+  }
+
   void cashOnDelivery() {
-    if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty) {
+    if ((Provider.of<UserProvider>(context, listen: false).user.address !=
+            addressToBeUsed) ||
+        (Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isEmpty)) {
       addressServices.saveUserAddress(
           context: context, address: addressToBeUsed);
     }
@@ -51,17 +58,6 @@ class _AddressScreenState extends State<AddressScreen> {
       address: addressToBeUsed,
       totalSum: double.parse(widget.totalAmount),
     );
-    // Navigator.pushNamed(
-    //   context,
-    //   HomeScreen.routeName,
-    // );
-
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   // Navigate to another page
-    //   Navigator.of(context).push(
-    //     MaterialPageRoute(builder: (context) => const AccountScreen()),
-    //   );
-    // });
   }
 
   @override
@@ -86,13 +82,14 @@ class _AddressScreenState extends State<AddressScreen> {
         addressToBeUsed =
             '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
       } else {
-        throw Exception('Please enter all the values!');
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Please Enter All Fields!")));
       }
     } else if (addressFromProvider.isNotEmpty) {
       addressToBeUsed = addressFromProvider;
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Error")));
+          .showSnackBar(const SnackBar(content: Text("Address required!")));
     }
   }
 
@@ -194,6 +191,11 @@ class _AddressScreenState extends State<AddressScreen> {
                   onPressed: () => {
                         payPressed(address),
                         cashOnDelivery(),
+                        if (_addressFormKey.currentState!.validate() ||
+                            address.isNotEmpty)
+                          {
+                            navigateToThankYouPage(),
+                          }
                       },
                   child: const Text("Place Order"))
             ],
