@@ -71,7 +71,7 @@ class _OrdersState extends State<Orders> {
                   right: 0,
                 ),
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.vertical,
                   itemCount: orders!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(

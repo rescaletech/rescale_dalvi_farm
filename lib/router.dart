@@ -3,6 +3,9 @@ import 'package:dalvi/features/account/screens/account_screen.dart';
 import 'package:dalvi/features/address/screens/address_screen.dart';
 import 'package:dalvi/features/admin/screens/add_products_screen.dart';
 import 'package:dalvi/features/auth/screens/auth_screen.dart';
+
+import 'package:dalvi/features/cart/screens/cart_screen.dart';
+
 import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/features/order_details/screens/order_details.dart';
 import 'package:dalvi/features/product_details/screens/product_details_screen.dart';
@@ -28,6 +31,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AccountScreen(),
+      );
+    
+    case CartScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const CartScreen(),
       );
     case AddressScreen.routeName:
       var totalAmount = routeSettings.arguments as String;
