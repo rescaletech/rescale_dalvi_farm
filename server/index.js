@@ -9,7 +9,7 @@ const adminRouter = require("./routes/admin.js");
 const cors = require("cors");
 //  INIT
 
-const PORT = 80;
+const PORT = 5000;
 
 const app = express();
 const DB =

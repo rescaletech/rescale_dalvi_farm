@@ -1,3 +1,4 @@
+import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/common/widgets/loader.dart';
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
@@ -109,6 +110,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: const BottomBar(),
       body: products == null
           ? const Loader()
           : Column(
@@ -136,6 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
+    
     );
   }
 }
