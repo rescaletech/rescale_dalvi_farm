@@ -104,7 +104,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
               ),
@@ -152,7 +152,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                     children: [
                       TextSpan(
-                        text: '\$${widget.product.price}',
+                        text: '${widget.product.price}',
                         style: const TextStyle(
                           fontSize: 22,
                           color: Colors.red,
