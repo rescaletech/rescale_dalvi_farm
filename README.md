@@ -1,16 +1,26 @@
 # dalvi
 
-A new Flutter project.
+Dalvi Agro - Organic mangoes from Chiplun with latest technology
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### E-Commerce Application using flutter
+# Architecture
+- [Flutter] (https://flutter.dev/)
+- [nodejs] (https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
+- [Headless CMS Sanity.io] (https://www.sanity.io/)
+- mongodb
+- Firebase
+- [Cloudinary] (https://cloudinary.com/blog/)
+- # Tools
+  - VSCode
+  - Android Studio
 
-A few resources to get you started if this is your first Flutter project:
+## TODO
+- # Build Instructions
+- # Production Deployment
+  - Build docker
+  - Deploy on GCP kubernetes as a service
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Changes by Teja
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

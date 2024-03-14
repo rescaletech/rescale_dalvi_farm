@@ -5,6 +5,7 @@ import 'package:dalvi/features/account/widgets/below_app_bar.dart';
 import 'package:dalvi/features/account/widgets/top_buttons.dart';
 
 class AccountScreen extends StatelessWidget {
+  static const String routeName = '/account';
   const AccountScreen({Key? key}) : super(key: key);
 
   @override

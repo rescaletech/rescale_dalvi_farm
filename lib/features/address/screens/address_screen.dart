@@ -4,6 +4,7 @@ import 'package:dalvi/features/address/services/address_services.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dalvi/constants/utils.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
@@ -25,7 +26,6 @@ class _AddressScreenState extends State<AddressScreen> {
   final _addressFormKey = GlobalKey<FormState>();
 
   String addressToBeUsed = "";
-  // List<PaymentItem> paymentItems = [];
   final AddressServices addressServices = AddressServices();
 
   String? payment =
@@ -51,17 +51,6 @@ class _AddressScreenState extends State<AddressScreen> {
       address: addressToBeUsed,
       totalSum: double.parse(widget.totalAmount),
     );
-    // Navigator.pushNamed(
-    //   context,
-    //   HomeScreen.routeName,
-    // );
-
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   // Navigate to another page
-    //   Navigator.of(context).push(
-    //     MaterialPageRoute(builder: (context) => const AccountScreen()),
-    //   );
-    // });
   }
 
   @override
@@ -86,19 +75,21 @@ class _AddressScreenState extends State<AddressScreen> {
         addressToBeUsed =
             '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
       } else {
-        throw Exception('Please enter all the values!');
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Please enter all the values!")));
       }
     } else if (addressFromProvider.isNotEmpty) {
       addressToBeUsed = addressFromProvider;
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Error")));
+          .showSnackBar(const SnackBar(content: Text("Address Required!")));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var address = context.watch<UserProvider>().user.address;
+    var cart = Provider.of<UserProvider>(context).user.cart;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -192,8 +183,15 @@ class _AddressScreenState extends State<AddressScreen> {
               const SizedBox(height: 10),
               ElevatedButton(
                   onPressed: () => {
-                        payPressed(address),
-                        cashOnDelivery(),
+                        if (cart.isNotEmpty)
+                          {
+                            payPressed(address),
+                            cashOnDelivery(),
+                          }
+                        else
+                          {
+                            {showSnackBar(context, 'Select Product!')},
+                          }
                       },
                   child: const Text("Place Order"))
             ],

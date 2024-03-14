@@ -22,31 +22,39 @@ class _AuthScreenState extends State<AuthScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _signUpEmailController = TextEditingController();
+  final TextEditingController _signUpPasswordController =
+      TextEditingController();
+  final TextEditingController _signUpNameController = TextEditingController();
+
+  final TextEditingController _signInEmailController = TextEditingController();
+  final TextEditingController _signInPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _nameController.dispose();
+    _signUpEmailController.dispose();
+    _signUpPasswordController.dispose();
+    _signUpNameController.dispose();
+
+    _signInEmailController.dispose();
+    _signInPasswordController.dispose();
   }
 
   void signUpUser() {
     authService.signUpUser(
         context: context,
-        email: _emailController.text,
-        password: _passwordController.text,
-        name: _nameController.text);
+        email: _signInEmailController.text,
+        password: _signInPasswordController.text,
+        name: _signUpNameController.text);
   }
 
   void signInUser() {
     authService.signInUser(
       context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
+      email: _signInEmailController.text,
+      password: _signInPasswordController.text,
     );
   }
 
@@ -97,21 +105,21 @@ class _AuthScreenState extends State<AuthScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                          controller: _nameController,
+                          controller: _signUpNameController,
                           hintText: "Name",
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         CustomTextField(
-                          controller: _emailController,
+                          controller: _signUpEmailController,
                           hintText: "Email",
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         CustomTextField(
-                          controller: _passwordController,
+                          controller: _signUpPasswordController,
                           hintText: "Password",
                         ),
                         const SizedBox(
@@ -158,14 +166,14 @@ class _AuthScreenState extends State<AuthScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
-                          controller: _emailController,
+                          controller: _signInEmailController,
                           hintText: "Email",
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         CustomTextField(
-                          controller: _passwordController,
+                          controller: _signInPasswordController,
                           hintText: "Password",
                         ),
                         const SizedBox(
@@ -190,4 +198,3 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 }
-
