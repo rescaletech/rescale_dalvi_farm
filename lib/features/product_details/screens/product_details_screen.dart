@@ -95,12 +95,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.transparent,
-                height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Icon(Icons.mic, color: Colors.black, size: 25),
-              ),
             ],
           ),
         ),
@@ -110,14 +104,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.product.id!,
-                  ),
-                ],
               ),
             ),
             Padding(
@@ -163,7 +152,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                     children: [
                       TextSpan(
-                        text: '\$${widget.product.price}',
+                        text: '${widget.product.price}',
                         style: const TextStyle(
                           fontSize: 22,
                           color: Colors.red,

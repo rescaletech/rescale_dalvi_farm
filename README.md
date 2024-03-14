@@ -21,4 +21,6 @@ Dalvi Agro - Organic mangoes from Chiplun with latest technology
 - # Production Deployment
   - Build docker
   - Deploy on GCP kubernetes as a service
-  - 
+
+Changes by Teja
+
