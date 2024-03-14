@@ -36,20 +36,20 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        title: 'Dalvi Farm',
-        theme: ThemeData(
-            scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-            colorScheme: const ColorScheme.light(
-              primary: GlobalVariables.secondaryColor,
-            ),
-            appBarTheme: const AppBarTheme(
-                elevation: 0,
-                backgroundColor: GlobalVariables.secondaryColor,
-                iconTheme: IconThemeData(
-                  color: Colors.black,
-                ))),
-        onGenerateRoute: (settings) => generateRoute(settings),
-        home: Scaffold(
+      title: 'Dalvi Farm',
+      theme: ThemeData(
+          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+          colorScheme: const ColorScheme.light(
+            primary: GlobalVariables.secondaryColor,
+          ),
+          appBarTheme: const AppBarTheme(
+              elevation: 0,
+              backgroundColor: GlobalVariables.secondaryColor,
+              iconTheme: IconThemeData(
+                color: Colors.black,
+              ))),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: Scaffold(
           body: Provider.of<UserProvider>(context).user.token.isNotEmpty
               ? Provider.of<UserProvider>(context).user.type == "user"
                   ? const BottomBar()
