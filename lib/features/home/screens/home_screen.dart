@@ -1,36 +1,9 @@
-// import 'package:dalvi/providers/user_provider.dart';
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-
-// class HomeScreen extends StatefulWidget {
-//   static const String routeName = '/home';
-//   const HomeScreen({super.key});
-
-//   @override
-//   State<HomeScreen> createState() => _HomeScreenState();
-// }
-
-// class _HomeScreenState extends State<HomeScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final user = Provider.of<UserProvider>(context).user;
-
-//     return Scaffold(
-//       body:  Center(
-//         child: Text(
-//           user.toJson(),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:dalvi/constants/global_variables.dart';
+import 'package:dalvi/features/home/screens/product_list.dart';
+import 'package:dalvi/features/home/services/home_services.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
-import 'package:dalvi/features/home/widgets/carousel_image.dart';
-// import 'package:dalvi/features/home/widgets/deal_of_day.dart';
-import 'package:dalvi/features/home/widgets/top_categories.dart';
 import 'package:dalvi/features/search/screens/search_screen.dart';
+import 'package:dalvi/models/product.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,6 +15,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Product>? products;
+  final HomeServices homeServices = HomeServices();
+  bool isLoading = false;
+  String errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
+
+  fetchProducts() async {
+    setState(() {
+      isLoading = true; // Set loading state to true
+    });
+    try {
+      // Fetch products
+      products = await homeServices.fetchProducts(context: context);
+      errorMessage = ''; // Reset error message if successful
+    } catch (e) {
+      // Handle error
+      errorMessage = e.toString();
+    } finally {
+      setState(() {
+        isLoading = false; // Set loading state to false
+      });
+    }
+  }
+
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
@@ -115,15 +117,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            AddressBox(),
-            SizedBox(height: 10),
-            TopCategories(),
-            SizedBox(height: 10),
-            CarouselImage(),
-            // DealOfDay(),
+            const AddressBox(),
+            const SizedBox(height: 10),
+            // Check if products are not null before displaying ProductList
+            ProductList(products: products ?? []),
+            if (isLoading)
+              const CircularProgressIndicator(), // Show loading indicator if products are being fetched
+            if (errorMessage.isNotEmpty) Text(errorMessage),
           ],
         ),
       ),
