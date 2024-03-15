@@ -1,11 +1,20 @@
 import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/features/account/screens/account_screen.dart';
+import 'package:dalvi/features/account/services/account_services.dart';
+import 'package:dalvi/models/order.dart';
 import 'package:flutter/material.dart';
 
-class ThankYouPage extends StatelessWidget {
+class ThankYouPage extends StatefulWidget {
   static const String routeName = '/thankyou';
-  const ThankYouPage({super.key});
+  const ThankYouPage({Key? key}) : super(key: key);
 
+  @override
+  State<ThankYouPage> createState() => _ThankYouPageState();
+}
+
+class _ThankYouPageState extends State<ThankYouPage> {
+  List<Order>? orders;
+  final AccountServices accountServices = AccountServices();
   void naviagteToHomeScreen(BuildContext context) {
     Navigator.pushNamed(context, BottomBar.routeName);
   }
@@ -15,7 +24,19 @@ class ThankYouPage extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    fetchOrders();
+  }
+
+  void fetchOrders() async {
+    orders = await accountServices.fetchMyOrders(context: context);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Order? lastOrder = orders?.last;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thank You'),
@@ -41,6 +62,15 @@ class ThankYouPage extends StatelessWidget {
             const Text(
               'Your order has been successfully placed.',
               style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 30),
+            Column(
+              children: [
+                Text('OrderId:   ${lastOrder?.id}'),
+                Text('Quantity:     ${lastOrder?.quantity}'),
+                Text('Total Price:    ${lastOrder?.totalPrice}'),
+                Text('Status:       ${lastOrder?.status}'),
+              ],
             ),
             const SizedBox(height: 30),
             Row(

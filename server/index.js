@@ -10,9 +10,10 @@ const cors = require("cors");
 //  INIT
 const PORT = 80;
 const app = express();
-const DB =
-  "mongodb+srv://rajmanbind3535:FuCAVzw1GxtDWSUE@cluster0.g0b73gw.mongodb.net/myDataBase?retryWrites=true&w=majority";
+const DB =  "mongodb+srv://rajmanbind3535:FuCAVzw1GxtDWSUE@cluster0.g0b73gw.mongodb.net/myDataBase?retryWrites=true&w=majority";
+  // "mongodb+srv://dhanrajmeena:DBd6KRSkLuC3IXD3@cluster0.qvizfjm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+  
 // middleware
 app.use(express.json());
 app.use(cors());

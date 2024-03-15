@@ -1,5 +1,6 @@
 import 'package:dalvi/common/widgets/custom_textfield.dart';
 import 'package:dalvi/constants/global_variables.dart';
+import 'package:dalvi/constants/utils.dart';
 import 'package:dalvi/features/address/services/address_services.dart';
 import 'package:dalvi/features/thankyou/thankyou.dart';
 import 'package:dalvi/providers/user_provider.dart';
@@ -13,7 +14,6 @@ class AddressScreen extends StatefulWidget {
     Key? key,
     required this.totalAmount,
   }) : super(key: key);
-
   @override
   State<AddressScreen> createState() => _AddressScreenState();
 }
@@ -43,7 +43,7 @@ class _AddressScreenState extends State<AddressScreen> {
     Navigator.pushNamed(context, ThankYouPage.routeName);
   }
 
-  void cashOnDelivery() {
+  void cashOnDelivery(address) {
     if ((Provider.of<UserProvider>(context, listen: false).user.address !=
             addressToBeUsed) ||
         (Provider.of<UserProvider>(context, listen: false)
@@ -53,11 +53,23 @@ class _AddressScreenState extends State<AddressScreen> {
       addressServices.saveUserAddress(
           context: context, address: addressToBeUsed);
     }
-    addressServices.placeOrder(
-      context: context,
-      address: addressToBeUsed,
-      totalSum: double.parse(widget.totalAmount),
-    );
+    if (addressToBeUsed.isNotEmpty ||
+        Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isNotEmpty) {
+      addressServices
+          .placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: double.parse(widget.totalAmount),
+      )
+          .then((_) {
+        navigateToThankYouPage();
+      }).catchError((error) {
+        showSnackBar(context, error);
+      });
+    }
   }
 
   @override
@@ -96,7 +108,6 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     var address = context.watch<UserProvider>().user.address;
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -190,12 +201,13 @@ class _AddressScreenState extends State<AddressScreen> {
               ElevatedButton(
                   onPressed: () => {
                         payPressed(address),
-                        cashOnDelivery(),
-                        if (_addressFormKey.currentState!.validate() ||
-                            address.isNotEmpty)
-                          {
-                            navigateToThankYouPage(),
-                          }
+                        cashOnDelivery(address),
+
+                        // if (_addressFormKey.currentState!.validate() ||
+                        //     address.isNotEmpty)
+                        //   {
+                        //     navigateToThankYouPage(),
+                        //   }
                       },
                   child: const Text("Place Order"))
             ],
