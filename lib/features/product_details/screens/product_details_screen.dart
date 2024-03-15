@@ -229,7 +229,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ],
         ),
       ),
-      // pages[_page],
       
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,

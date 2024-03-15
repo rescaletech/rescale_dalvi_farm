@@ -4,7 +4,9 @@ import 'package:dalvi/features/address/screens/address_screen.dart';
 import 'package:dalvi/features/cart/widgets/cart_product.dart';
 import 'package:dalvi/features/cart/widgets/cart_subtotal.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
+import 'package:dalvi/features/product_details/screens/product_details_screen.dart';
 import 'package:dalvi/features/search/screens/search_screen.dart';
+import 'package:dalvi/models/product.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -128,8 +130,19 @@ class _CartScreenState extends State<CartScreen> {
               itemCount: user.cart.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return CartProduct(
-                  index: index,
+                final productMap = user.cart[index]['product'];
+                final product = Product.fromMap(productMap);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context, 
+                      ProductDetailScreen.routeName,
+                      arguments: product
+                    );
+                  },
+                  child: CartProduct(
+                    index: index,
+                  ),
                 );
               },
             ),
