@@ -31,6 +31,10 @@ const orderSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  lastUpdate: {
+    type: Number, // Change the type to Date if you want to store dates
+    default: Date.now, // Set default value to current timestamp
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);
