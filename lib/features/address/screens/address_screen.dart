@@ -43,7 +43,7 @@ class _AddressScreenState extends State<AddressScreen> {
     Navigator.pushNamed(context, ThankYouPage.routeName);
   }
 
-  void cashOnDelivery(address) {
+  void cashOnDelivery(address) async {
     if ((Provider.of<UserProvider>(context, listen: false).user.address !=
             addressToBeUsed) ||
         (Provider.of<UserProvider>(context, listen: false)

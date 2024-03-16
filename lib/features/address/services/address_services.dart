@@ -62,7 +62,7 @@ class AddressServices {
             'address': address,
             'totalPrice': totalSum,
           }));
-      httpErrorHandle(
+      await httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
