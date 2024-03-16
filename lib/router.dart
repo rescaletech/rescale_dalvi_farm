@@ -10,6 +10,7 @@ import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/features/order_details/screens/order_details.dart';
 import 'package:dalvi/features/product_details/screens/product_details_screen.dart';
 import 'package:dalvi/features/search/screens/search_screen.dart';
+import 'package:dalvi/features/thankyou/thankyou.dart';
 import 'package:dalvi/models/order.dart';
 import 'package:dalvi/models/product.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const AccountScreen(),
       );
-    
+
     case CartScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -83,6 +84,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => ProductDetailScreen(
           product: product,
         ),
+      );
+
+    case ThankYouPage.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const ThankYouPage(),
       );
 
     default:
