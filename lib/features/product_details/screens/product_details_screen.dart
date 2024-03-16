@@ -40,26 +40,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     Navigator.pushNamed(context, CartScreen.routeName);
   }
 
-  void navigateToCartScreenAndAddToCart() {
-  navigateToCartScreen();
-  addToCart();
-}
-
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
-
-  List<Widget> pages = [
-    const HomeScreen(),
-    const AccountScreen(),
-    const CartScreen(),
-  ];
-
-  void updatePage(int page) {
-    setState(() {
-      _page = page;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +197,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(10.0),
               child: CustomButton(
                 text: 'Add to Cart',
-
-                onTap: navigateToCartScreenAndAddToCart,
-
-  
+                onTap: () {
+                  addToCart();
+                  navigateToCartScreen();
+                },
                 color: const Color.fromARGB(255, 255, 237, 147),
               ),
             ),
@@ -229,70 +212,92 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ],
         ),
       ),
-      
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _page,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
-        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
-        onTap: updatePage,
-        items: [
-          // HOME
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 0
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
+      bottomNavigationBar: buildBottomNavigation(context, userCartLen),
+    );
+  }
+
+  BottomNavigationBar buildBottomNavigation(
+      BuildContext context, int userCartLen) {
+    return BottomNavigationBar(
+      currentIndex: _page,
+      selectedItemColor: Colors.black87,
+      unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+      backgroundColor: GlobalVariables.backgroundColor,
+      iconSize: 28,
+      onTap: (index) {
+        if (index != _page) {
+          performTap(index);
+        }
+      },
+      items: [
+        // HOME
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 1
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
                 ),
               ),
+            ),
+            child:GestureDetector(
+              onTap: () {
+                performTap(0);
+              },
               child: const Icon(
                 Icons.home_outlined,
               ),
             ),
-            label: '',
           ),
-          // ACCOUNT
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 1
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
+          label: '',
+        ),
+        // ACCOUNT
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 1
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
                 ),
               ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(1);
+              },
               child: const Icon(
                 Icons.person_outline_outlined,
               ),
             ),
-            label: '',
           ),
-          // CART
-          BottomNavigationBarItem(
-            // tooltip: "Cart",
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 2
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
+          label: '',
+        ),
+        // CART
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 2
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
                 ),
               ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(2);
+              },
               child: Center(
                 child: badges.Badge(
                   badgeContent: Text(
@@ -309,10 +314,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
             ),
-            label: '',
           ),
-        ],
-      ),
+          label: '',
+        ),
+      ],
     );
+  }
+
+  void performTap(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AccountScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CartScreen()),
+        );
+        break;
+    }
   }
 }

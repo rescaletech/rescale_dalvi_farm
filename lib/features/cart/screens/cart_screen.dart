@@ -1,8 +1,10 @@
 import 'package:dalvi/common/widgets/custom_button.dart';
 import 'package:dalvi/constants/global_variables.dart';
+import 'package:dalvi/features/account/screens/account_screen.dart';
 import 'package:dalvi/features/address/screens/address_screen.dart';
 import 'package:dalvi/features/cart/widgets/cart_product.dart';
 import 'package:dalvi/features/cart/widgets/cart_subtotal.dart';
+import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
 import 'package:dalvi/features/product_details/screens/product_details_screen.dart';
 import 'package:dalvi/features/search/screens/search_screen.dart';
@@ -10,6 +12,7 @@ import 'package:dalvi/models/product.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class CartScreen extends StatefulWidget {
   static const String routeName = '/cart';
@@ -32,8 +35,13 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  int _page = 2;
+  double bottomBarWidth = 42;
+  double bottomBarBorderWidth = 5;
+
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
     final user = context.watch<UserProvider>().user;
     int sum = 0;
     user.cart
@@ -50,7 +58,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
                 child: Container(
@@ -134,11 +142,8 @@ class _CartScreenState extends State<CartScreen> {
                 final product = Product.fromMap(productMap);
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context, 
-                      ProductDetailScreen.routeName,
-                      arguments: product
-                    );
+                    Navigator.pushNamed(context, ProductDetailScreen.routeName,
+                        arguments: product);
                   },
                   child: CartProduct(
                     index: index,
@@ -149,6 +154,133 @@ class _CartScreenState extends State<CartScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: buildBottomNavigation(context, userCartLen),
     );
+  }
+
+  BottomNavigationBar buildBottomNavigation(
+      BuildContext context, int userCartLen) {
+    return BottomNavigationBar(
+      currentIndex: _page,
+      selectedItemColor: GlobalVariables.selectedNavBarColor,
+      unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+      backgroundColor: GlobalVariables.backgroundColor,
+      iconSize: 28,
+      onTap: (index) {
+        if (index != _page) {
+          performTap(index);
+        }
+      },
+      items: [
+        // HOME
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 0
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
+                ),
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(0);
+              },
+              child: const Icon(
+                Icons.home_outlined,
+              ),
+            ),
+          ),
+          label: '',
+        ),
+        // ACCOUNT
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 1
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
+                ),
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(1);
+              },
+              child: const Icon(
+                Icons.person_outline_outlined,
+              ),
+            ),
+          ),
+          label: '',
+        ),
+        // CART
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 2
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
+                ),
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {},
+              child: Center(
+                child: badges.Badge(
+                  badgeContent: Text(
+                    userCartLen.toString(),
+                  ),
+                  position: badges.BadgePosition.topEnd(top: -15, end: -15),
+                  badgeStyle: const badges.BadgeStyle(
+                    badgeColor: Colors.white,
+                    elevation: 0,
+                  ),
+                  child: const Icon(
+                    Icons.shopping_cart_outlined,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          label: '',
+        ),
+      ],
+    );
+  }
+
+  void performTap(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AccountScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CartScreen()),
+        );
+        break;
+    }
   }
 }
