@@ -36,9 +36,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   // !!! ONLY FOR ADMIN!!!
   void changeOrderStatus(int status) {
+    // Update lastUpdate time to current time
+    int currentTime = DateTime.now().millisecondsSinceEpoch;
+
+    // Call the admin service to change order status
     adminServices.changeOrderStatus(
       context: context,
       status: status + 1,
+      lastUpdate: currentTime,
       order: widget.order,
       onSuccess: () {
         setState(() {
@@ -51,7 +56,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -235,9 +239,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   },
                   steps: [
                     Step(
-                      title: const Text('Pending'),
+                      title: const Text('Placed'),
                       content: const Text(
-                        'Your order is yet to be delivered',
+                        'Your order is Placed',
                       ),
                       isActive: currentStep > 0,
                       state: currentStep > 0
@@ -245,9 +249,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           : StepState.indexed,
                     ),
                     Step(
-                      title: const Text('Completed'),
+                      title: const Text('Payment Received'),
                       content: const Text(
-                        'Your order has been delivered, you are yet to sign.',
+                        'Payment Received , Ready to Deliverd',
                       ),
                       isActive: currentStep > 1,
                       state: currentStep > 1
@@ -255,9 +259,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           : StepState.indexed,
                     ),
                     Step(
-                      title: const Text('Received'),
+                      title: const Text('Delivered'),
                       content: const Text(
-                        'Your order has been delivered and signed by you.',
+                        'Product Delivered',
                       ),
                       isActive: currentStep > 2,
                       state: currentStep > 2
@@ -265,12 +269,37 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           : StepState.indexed,
                     ),
                     Step(
-                      title: const Text('Delivered'),
+                      title: const Text('Refunded'),
+
+                      // TODO
                       content: const Text(
-                        'Your order has been delivered and signed by you!',
+                        'Refunded',
                       ),
-                      isActive: currentStep >= 3,
-                      state: currentStep >= 3
+                      isActive: currentStep > 3,
+                      state: currentStep > 3
+                          ? StepState.complete
+                          : StepState.indexed,
+                    ),
+                    Step(
+                      title: const Text('Cancelled'),
+
+                      // TODO
+                      content: const Text(
+                        'Cancelled',
+                      ),
+                      isActive: currentStep > 4,
+                      state: currentStep > 4
+                          ? StepState.complete
+                          : StepState.indexed,
+                    ),
+                    Step(
+                      title: const Text('Complaint'),
+                      // TODO
+                      content: const Text(
+                        'Complaint',
+                      ),
+                      isActive: currentStep > 5,
+                      state: currentStep > 5
                           ? StepState.complete
                           : StepState.indexed,
                     ),

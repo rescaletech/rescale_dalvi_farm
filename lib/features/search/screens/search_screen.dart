@@ -147,7 +147,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
+
     bottomNavigationBar: buildBottomNavigation(context, userCartLen),
+
     );
   }
 

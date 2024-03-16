@@ -1,8 +1,8 @@
-import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/admin/screens/admin_screen.dart';
 import 'package:dalvi/features/auth/screens/auth_screen.dart';
 import 'package:dalvi/features/auth/services/auth_service.dart';
+import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:dalvi/router.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
           body: Provider.of<UserProvider>(context).user.token.isNotEmpty
               ? Provider.of<UserProvider>(context).user.type == "user"
-                  ? const BottomBar()
+                  ? const HomeScreen()
                   : const AdminScreen()
               : const AuthScreen()),
     );

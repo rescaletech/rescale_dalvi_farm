@@ -10,7 +10,7 @@ const cors = require("cors");
 //  INIT
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = 80;
 
 const app = express();
 const DB =

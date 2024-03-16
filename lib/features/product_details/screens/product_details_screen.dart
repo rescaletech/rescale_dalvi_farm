@@ -238,6 +238,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               border: Border(
                 top: BorderSide(
                   color: _page == 0
+
                       ? Colors.white
                       : GlobalVariables.backgroundColor,
                   width: bottomBarBorderWidth,

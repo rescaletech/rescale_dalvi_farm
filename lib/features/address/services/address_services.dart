@@ -44,7 +44,7 @@ class AddressServices {
     }
   }
 
-  void placeOrder({
+  Future<void> placeOrder({
     required BuildContext context,
     required String address,
     required double totalSum,
@@ -62,8 +62,7 @@ class AddressServices {
             'address': address,
             'totalPrice': totalSum,
           }));
-
-      httpErrorHandle(
+      await httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {

@@ -99,7 +99,7 @@ class _CartProductState extends State<CartProduct> {
         Container(
           margin: const EdgeInsets.all(10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
