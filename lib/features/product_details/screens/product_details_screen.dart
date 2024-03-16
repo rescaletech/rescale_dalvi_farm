@@ -238,11 +238,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               border: Border(
                 top: BorderSide(
                   color: _page == 0
-<<<<<<< HEAD
+
                       ? Colors.white
-=======
-                      ? GlobalVariables.selectedNavBarColor
->>>>>>> b3d37ef348c8dbf3e736e84a341752bb88a07e06
                       : GlobalVariables.backgroundColor,
                   width: bottomBarBorderWidth,
                 ),

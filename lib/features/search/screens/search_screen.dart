@@ -1,12 +1,17 @@
-import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/common/widgets/loader.dart';
 import 'package:dalvi/constants/global_variables.dart';
+import 'package:dalvi/features/account/screens/account_screen.dart';
+import 'package:dalvi/features/cart/screens/cart_screen.dart';
+import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
 import 'package:dalvi/features/product_details/screens/product_details_screen.dart';
 import 'package:dalvi/features/search/services/search_services.dart';
 import 'package:dalvi/features/search/widget/searched_product.dart';
 import 'package:dalvi/models/product.dart';
+import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 // import 'package:dalvi/features/home/screens/home_screen.dart';
 class SearchScreen extends StatefulWidget {
@@ -41,8 +46,13 @@ class _SearchScreenState extends State<SearchScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
+  int _page = 0;
+  double bottomBarWidth = 42;
+  double bottomBarBorderWidth = 5;
+
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -110,7 +120,6 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
       body: products == null
           ? const Loader()
           : Column(
@@ -138,6 +147,142 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
+
+    bottomNavigationBar: buildBottomNavigation(context, userCartLen),
+
     );
+  }
+
+  BottomNavigationBar buildBottomNavigation(
+      BuildContext context, int userCartLen) {
+    return BottomNavigationBar(
+      currentIndex: _page,
+      selectedItemColor: Colors.black87,
+      unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+      backgroundColor: GlobalVariables.backgroundColor,
+      iconSize: 28,
+      onTap: (index) {
+        if (index != _page) {
+          performTap(index);
+        }
+      },
+      items: [
+        // HOME
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 0
+                      ? Colors.white
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
+                ),
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(0);
+              },
+              child: const Icon(
+                Icons.home_outlined,
+              ),
+            ),
+          ),
+          label: '',
+        ),
+        // ACCOUNT
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 1
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
+                ),
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(1);
+              },
+              child: const Icon(
+                Icons.person_outline_outlined,
+              ),
+            ),
+          ),
+          label: '',
+        ),
+        // CART
+        BottomNavigationBarItem(
+          icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: _page == 2
+                      ? GlobalVariables.selectedNavBarColor
+                      : GlobalVariables.backgroundColor,
+                  width: bottomBarBorderWidth,
+                ),
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                performTap(2);
+              },
+              child: userCartLen > 0
+                  ? Center(
+                      child: badges.Badge(
+                        badgeContent: Text(
+                          userCartLen.toString(),
+                        ),
+                        position:
+                            badges.BadgePosition.topEnd(top: -15, end: -15),
+                        badgeStyle: const badges.BadgeStyle(
+                          badgeColor: Colors.white,
+                          elevation: 0,
+                        ),
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                        ),
+                      ),
+                    )
+                  : const Icon(
+                      Icons.shopping_cart_outlined,
+                    ),
+            ),
+          ),
+          label: '',
+        ),
+      ],
+    );
+  }
+
+  void performTap(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AccountScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CartScreen()),
+        );
+        break;
+    }
   }
 }
