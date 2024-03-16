@@ -244,7 +244,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
             ),
-            child:GestureDetector(
+            child: GestureDetector(
               onTap: () {
                 performTap(0);
               },
@@ -298,21 +298,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               onTap: () {
                 performTap(2);
               },
-              child: Center(
-                child: badges.Badge(
-                  badgeContent: Text(
-                    userCartLen.toString(),
-                  ),
-                  position: badges.BadgePosition.topEnd(top: -15, end: -15),
-                  badgeStyle: const badges.BadgeStyle(
-                    badgeColor: Colors.white,
-                    elevation: 0,
-                  ),
-                  child: const Icon(
-                    Icons.shopping_cart_outlined,
-                  ),
-                ),
-              ),
+              child: userCartLen > 0
+                  ? Center(
+                      child: badges.Badge(
+                        badgeContent: Text(
+                          userCartLen.toString(),
+                        ),
+                        position:
+                            badges.BadgePosition.topEnd(top: -15, end: -15),
+                        badgeStyle: const badges.BadgeStyle(
+                          badgeColor: Colors.white,
+                          elevation: 0,
+                        ),
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                        ),
+                      ),
+                    )
+                  : const Icon(
+                      Icons.shopping_cart_outlined,
+                    ),
             ),
           ),
           label: '',

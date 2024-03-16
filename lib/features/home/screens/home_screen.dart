@@ -143,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: buildBottomNavigation(context, userCartLen),
     );
   }
+
   BottomNavigationBar buildBottomNavigation(
       BuildContext context, int userCartLen) {
     return BottomNavigationBar(
@@ -173,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: GestureDetector(
               onTap: () {
-              //  performTap(0);
+                //  performTap(0);
               },
               child: const Icon(
                 Icons.home_outlined,
@@ -222,22 +223,29 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             child: GestureDetector(
-              onTap: () { performTap(2);},
-              child: Center(
-                child: badges.Badge(
-                  badgeContent: Text(
-                    userCartLen.toString(),
-                  ),
-                  position: badges.BadgePosition.topEnd(top: -15, end: -15),
-                  badgeStyle: const badges.BadgeStyle(
-                    badgeColor: Colors.white,
-                    elevation: 0,
-                  ),
-                  child: const Icon(
-                    Icons.shopping_cart_outlined,
-                  ),
-                ),
-              ),
+              onTap: () {
+                performTap(2);
+              },
+              child: userCartLen > 0
+                  ? Center(
+                      child: badges.Badge(
+                        badgeContent: Text(
+                          userCartLen.toString(),
+                        ),
+                        position:
+                            badges.BadgePosition.topEnd(top: -15, end: -15),
+                        badgeStyle: const badges.BadgeStyle(
+                          badgeColor: Colors.white,
+                          elevation: 0,
+                        ),
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                        ),
+                      ),
+                    )
+                  : const Icon(
+                      Icons.shopping_cart_outlined,
+                    ),
             ),
           ),
           label: '',
