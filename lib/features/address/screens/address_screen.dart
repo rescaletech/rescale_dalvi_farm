@@ -1,6 +1,7 @@
 import 'package:dalvi/common/widgets/custom_textfield.dart';
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/address/services/address_services.dart';
+import 'package:dalvi/features/thankyou/thankyou.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,19 +39,37 @@ class _AddressScreenState extends State<AddressScreen> {
     });
   }
 
-  void cashOnDelivery() {
-    if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty) {
+  void navigateToThankYouPage() {
+    Navigator.pushNamed(context, ThankYouPage.routeName);
+  }
+
+  void cashOnDelivery(address) async {
+    if ((Provider.of<UserProvider>(context, listen: false).user.address !=
+            addressToBeUsed) ||
+        (Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isEmpty)) {
       addressServices.saveUserAddress(
           context: context, address: addressToBeUsed);
     }
-    addressServices.placeOrder(
-      context: context,
-      address: addressToBeUsed,
-      totalSum: double.parse(widget.totalAmount),
-    );
+    if (addressToBeUsed.isNotEmpty ||
+        Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isNotEmpty) {
+      addressServices
+          .placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: double.parse(widget.totalAmount),
+      )
+          .then((_) {
+        navigateToThankYouPage();
+      }).catchError((error) {
+        showSnackBar(context, error);
+      });
+    }
   }
 
   @override
@@ -186,7 +205,7 @@ class _AddressScreenState extends State<AddressScreen> {
                         if (cart.isNotEmpty)
                           {
                             payPressed(address),
-                            cashOnDelivery(),
+                            cashOnDelivery(address),
                           }
                         else
                           {
