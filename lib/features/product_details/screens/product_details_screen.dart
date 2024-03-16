@@ -237,8 +237,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  color: _page == 1
-                      ? GlobalVariables.selectedNavBarColor
+                  color: _page == 0
+                      ? Colors.white
                       : GlobalVariables.backgroundColor,
                   width: bottomBarBorderWidth,
                 ),

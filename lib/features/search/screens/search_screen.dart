@@ -121,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: ListView.builder(
                     itemCount: products!.length,
                     itemBuilder: (context, index) {
-                      return GestureDetector(
+                      return InkWell(
                         onTap: () {
                           Navigator.pushNamed(
                             context,
@@ -138,7 +138,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
-    
     );
   }
 }

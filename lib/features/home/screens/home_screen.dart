@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: GestureDetector(
               onTap: () {
-                //  performTap(0);
+                // performTap(0);
               },
               child: const Icon(
                 Icons.home_outlined,
