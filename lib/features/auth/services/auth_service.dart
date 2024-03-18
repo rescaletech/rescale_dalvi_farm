@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/constants/error_handling.dart';
 import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/constants/utils.dart';
+import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -81,7 +81,7 @@ class AuthService {
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
-            BottomBar.routeName,
+            HomeScreen.routeName,
             (route) => false,
           );
         },
