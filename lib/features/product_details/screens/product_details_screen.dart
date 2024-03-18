@@ -185,14 +185,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               color: Colors.black12,
               height: 5,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: CustomButton(
-                text: 'Buy Now',
-                onTap: () {},
-              ),
-            ),
-            const SizedBox(height: 8),
+            // Padding(
+            //   padding: const EdgeInsets.all(10.0),
+            //   child: CustomButton(
+            //     text: 'Buy Now',
+            //     onTap: () {},
+            //   ),
+            // ),
+            // const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: CustomButton(
@@ -225,9 +225,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       backgroundColor: GlobalVariables.backgroundColor,
       iconSize: 28,
       onTap: (index) {
-        if (index != _page) {
           performTap(index);
-        }
       },
       items: [
         // HOME
