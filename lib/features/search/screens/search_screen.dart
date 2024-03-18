@@ -10,8 +10,9 @@ import 'package:dalvi/features/search/widget/searched_product.dart';
 import 'package:dalvi/models/product.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:provider/provider.dart';
+
 
 // import 'package:dalvi/features/home/screens/home_screen.dart';
 class SearchScreen extends StatefulWidget {
@@ -147,7 +148,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
-
     bottomNavigationBar: buildBottomNavigation(context, userCartLen),
 
     );
