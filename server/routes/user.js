@@ -119,7 +119,23 @@ userRouter.post("/api/order", auth, async (req, res) => {
       userId: req.user,
       orderedAt: new Date().getTime(),
     });
-    order = await order.save();
+
+    // let getAllOrder = await order.find({});
+    // getAllOrder = getAllOrder.unshift(order);
+    // await Order.insertMany(getAllOrder);
+    // order = await order.save();
+    // res.json(order);
+    // Fetch user's existing orders
+    // Fetch user's existing orders
+    let userOrders = await Order.find({ userId: req.user });
+
+    // Add the new order to the beginning of the list
+    userOrders.unshift(order);
+
+    // Save all orders (including the new one) back to the database
+    await Order.deleteMany({ userId: req.user }); // Clear existing orders
+    await Order.insertMany(userOrders); // Insert all orders
+
     res.json(order);
   } catch (e) {
     res.status(500).json({ error: e.message });
