@@ -160,6 +160,7 @@ class AdminServices {
     required int status,
     required Order order,
     required VoidCallback onSuccess,
+    required int lastUpdate,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -173,6 +174,7 @@ class AdminServices {
         body: jsonEncode({
           'id': order.id,
           'status': status,
+          'lastUpdate': lastUpdate, // Include lastUpdate in the request body
         }),
       );
 

@@ -11,7 +11,7 @@ class Order {
   final int orderedAt;
   final int status;
   final int totalPrice;
-  final int lastUpdate;
+  int lastUpdate;
   Order({
     required this.id,
     required this.products,

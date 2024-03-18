@@ -140,7 +140,7 @@ class _CartScreenState extends State<CartScreen> {
               itemBuilder: (context, index) {
                 final productMap = user.cart[index]['product'];
                 final product = Product.fromMap(productMap);
-                return GestureDetector(
+                return InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, ProductDetailScreen.routeName,
                         arguments: product);

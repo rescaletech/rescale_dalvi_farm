@@ -36,9 +36,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   // !!! ONLY FOR ADMIN!!!
   void changeOrderStatus(int status) {
+    // Update lastUpdate time to current time
+    int currentTime = DateTime.now().millisecondsSinceEpoch;
+
+    // Call the admin service to change order status
     adminServices.changeOrderStatus(
       context: context,
       status: status + 1,
+      lastUpdate: currentTime,
       order: widget.order,
       onSuccess: () {
         setState(() {
@@ -265,6 +270,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ),
                     Step(
                       title: const Text('Refunded'),
+
                       // TODO
                       content: const Text(
                         'Refunded',
@@ -276,6 +282,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ),
                     Step(
                       title: const Text('Cancelled'),
+
                       // TODO
                       content: const Text(
                         'Cancelled',

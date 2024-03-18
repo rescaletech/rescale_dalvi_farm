@@ -18,7 +18,7 @@ class _ProductListState extends State<ProductList> {
       children: widget.products.map((product) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 20), // Add bottom margin
-          child: GestureDetector(
+          child: InkWell(
             onTap: () {
               // Navigate to ProductDetailsPage
               Navigator.push(

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
 
+
 // import 'package:dalvi/features/home/screens/home_screen.dart';
 class SearchScreen extends StatefulWidget {
   static const String routeName = '/search-screen';
@@ -130,7 +131,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: ListView.builder(
                     itemCount: products!.length,
                     itemBuilder: (context, index) {
-                      return GestureDetector(
+                      return InkWell(
                         onTap: () {
                           Navigator.pushNamed(
                             context,
