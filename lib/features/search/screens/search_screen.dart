@@ -162,9 +162,7 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: GlobalVariables.backgroundColor,
       iconSize: 28,
       onTap: (index) {
-        if (index != _page) {
           performTap(index);
-        }
       },
       items: [
         // HOME
