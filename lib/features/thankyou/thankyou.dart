@@ -1,6 +1,7 @@
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/constants/utils.dart';
+import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/features/account/screens/account_screen.dart';
 import 'package:dalvi/features/account/services/account_services.dart';
 import 'package:dalvi/models/order.dart';
@@ -20,7 +21,7 @@ class _ThankYouPageState extends State<ThankYouPage> {
   bool isLoading = true;
 
   void naviagteToHomeScreen(BuildContext context) {
-    Navigator.pushNamed(context, BottomBar.routeName);
+    Navigator.pushNamed(context, HomeScreen.routeName);
   }
 
   void navigateToMyOrdersScreen(BuildContext context) {
@@ -37,8 +38,6 @@ class _ThankYouPageState extends State<ThankYouPage> {
     try {
       orders = await accountServices.fetchMyOrders(context: context);
     } catch (error) {
-      // Handle error
-      // print(error);
       showSnackBar(context, error.toString());
     } finally {
       setState(() {
@@ -62,76 +61,198 @@ class _ThankYouPageState extends State<ThankYouPage> {
   }
 
   Widget buildThankYouBody() {
-    Order? lastOrder = orders?.last;
+    Order? lastOrder = orders?.first;
     List<Product>? productList = lastOrder?.products;
     int? length = productList?.length ?? 0;
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: ListView(
         children: [
-          const Icon(
-            Icons.check_circle_outline,
-            size: 100,
-            color: Colors.green,
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'Thank You for Your Purchase!',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'Your order has been successfully placed.',
-            style: TextStyle(fontSize: 18),
-          ),
-          const SizedBox(height: 30),
-          Card(
-            elevation: 5,
-            margin: const EdgeInsets.all(10),
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('OrderId: ${lastOrder?.id}'),
-                  const SizedBox(height: 30),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (int i = 0; i < length; i++)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.check_circle_outline,
+                size: 100,
+                color: Colors.green,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Thank You for Your Purchase!',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Your order has been successfully placed.',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 30),
+              Card(
+                elevation: 5,
+                margin: const EdgeInsets.all(10),
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black12,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                left: 15,
+                              ),
+                              child: const Text(
+                                'Order Id :',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                right: 15,
+                              ),
+                              child: Text(
+                                '${lastOrder?.id}',
+                                style: TextStyle(
+                                  color: GlobalVariables.selectedNavBarColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Product Name: ${productList?[i].name}'),
-                            Text('Quantity: ${lastOrder?.quantity[i]}'),
-                            const SizedBox(height: 10),
+                            for (int i = 0; i < length; i++)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          left: 15,
+                                        ),
+                                        child: const Text(
+                                          'Product Name :',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 15,
+                                        ),
+                                        child: Text(
+                                          '${productList?[i].name}',
+                                          style: TextStyle(
+                                            color: GlobalVariables
+                                                .selectedNavBarColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          left: 15,
+                                        ),
+                                        child: const Text(
+                                          'Quantity :',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 15,
+                                        ),
+                                        child: Text(
+                                          '${lastOrder?.quantity[i]}',
+                                          style: TextStyle(
+                                            color: GlobalVariables
+                                                .selectedNavBarColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          left: 15,
+                                        ),
+                                        child: const Text(
+                                          'Total Price :',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 15,
+                                        ),
+                                        child: Text(
+                                          '₹ ${lastOrder?.totalPrice}',
+                                          style: TextStyle(
+                                            color: GlobalVariables
+                                                .selectedNavBarColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
-                      Text('Total Price: ${lastOrder?.totalPrice}'),
-                    ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      naviagteToHomeScreen(context);
+                    },
+                    child: const Text('Continue Shopping'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      navigateToMyOrdersScreen(context);
+                    },
+                    child: const Text('My Orders'),
                   ),
                 ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  naviagteToHomeScreen(context);
-                },
-                child: const Text('Continue Shopping'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  navigateToMyOrdersScreen(context);
-                },
-                child: const Text('My Orders'),
               ),
             ],
           ),
