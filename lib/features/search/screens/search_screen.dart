@@ -1,6 +1,7 @@
 import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/common/widgets/loader.dart';
 import 'package:dalvi/constants/global_variables.dart';
+import 'package:dalvi/features/home/screens/home_screen.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
 import 'package:dalvi/features/product_details/screens/product_details_screen.dart';
 import 'package:dalvi/features/search/services/search_services.dart';
@@ -110,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const HomeScreen(),
       body: products == null
           ? const Loader()
           : Column(
@@ -138,7 +139,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
-    
     );
   }
 }

@@ -53,11 +53,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const AddProductScreen(),
       );
 
-    case BottomBar.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const BottomBar(),
-      );
+    // case BottomBar.routeName:
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => const BottomBar(),
+    //   );
 
     case OrderDetailScreen.routeName:
       var order = routeSettings.arguments as Order;
