@@ -21,7 +21,7 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-  int currentStep = 0;
+  int currentStep = 1;
   final AdminServices adminServices = AdminServices();
 
   void navigateToSearchScreen(String query) {
@@ -31,7 +31,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   void initState() {
     super.initState();
-    currentStep = widget.order.status;
+    if (widget.order.status > 1) {
+      currentStep = widget.order.status;
+    }
   }
 
   // !!! ONLY FOR ADMIN!!!
@@ -136,7 +138,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'View order details',
+                'Order Details',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -164,7 +166,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               ),
               const SizedBox(height: 10),
               const Text(
-                'Purchase Details',
+                'Items',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -229,6 +231,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {
+                    print('currentStep: ${currentStep}');
                     if (user.type == 'admin' || user.type == 'Admin') {
                       return CustomButton(
                         text: 'Done',
@@ -298,8 +301,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       content: const Text(
                         'Complaint',
                       ),
-                      isActive: currentStep > 5,
-                      state: currentStep > 5
+                      isActive: currentStep == 5,
+                      state: currentStep == 5
                           ? StepState.complete
                           : StepState.indexed,
                     ),
