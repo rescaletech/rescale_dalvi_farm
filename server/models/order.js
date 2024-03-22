@@ -29,7 +29,7 @@ const orderSchema = mongoose.Schema({
   },
   status: {
     type: Number,
-    default: 0,
+    default: 1,
   },
   lastUpdate: {
     type: Number,
