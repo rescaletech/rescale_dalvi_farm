@@ -25,7 +25,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthService authService = AuthService();
-
   @override
   void initState() {
     super.initState();
@@ -34,17 +33,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    const Color customCyan = Color.fromARGB(255, 29, 201, 192);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Dalvi Farm',
       theme: ThemeData(
           scaffoldBackgroundColor: GlobalVariables.backgroundColor,
           colorScheme: const ColorScheme.light(
-            primary: GlobalVariables.secondaryColor,
+            primary: customCyan,
           ),
           appBarTheme: const AppBarTheme(
               elevation: 0,
-              backgroundColor: GlobalVariables.secondaryColor,
+              backgroundColor: customCyan,
               iconTheme: IconThemeData(
                 color: Colors.black,
               ))),

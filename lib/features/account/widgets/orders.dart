@@ -14,7 +14,7 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  int status = 0;
+  // int status = 0;
   List<Order>? orders;
   final AccountServices accountServices = AccountServices();
 
@@ -57,9 +57,7 @@ class _OrdersState extends State<Orders> {
                     ),
                     child: const Text(
                       'Your Orders :',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
+                      style: TextStyle(),
                     ),
                   ),
                   Container(
@@ -87,6 +85,7 @@ class _OrdersState extends State<Orders> {
                   scrollDirection: Axis.vertical,
                   itemCount: orders!.length,
                   itemBuilder: (context, index) {
+                    print(orders![index].status);
                     return InkWell(
                       onTap: () {
                         Navigator.pushNamed(
@@ -109,14 +108,10 @@ class _OrdersState extends State<Orders> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                  ),
+                                  padding: const EdgeInsets.only(),
                                   child: const Text(
                                     'Order ID :',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                    style: TextStyle(color: Colors.black87),
                                   ),
                                 ),
                                 Container(
@@ -126,9 +121,8 @@ class _OrdersState extends State<Orders> {
                                   child: Text(
                                     orders![index].id,
                                     style: TextStyle(
-                                      color:
-                                          GlobalVariables.selectedNavBarColor,
-                                    ),
+                                        color: const Color.fromRGBO(
+                                            0, 0, 0, 0.75)),
                                   ),
                                 ),
                               ],
@@ -137,14 +131,10 @@ class _OrdersState extends State<Orders> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                  ),
+                                  padding: const EdgeInsets.only(),
                                   child: const Text(
                                     'Order Date :',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                    style: TextStyle(color: Colors.black87),
                                   ),
                                 ),
                                 Container(
@@ -157,9 +147,8 @@ class _OrdersState extends State<Orders> {
                                           orders![index].orderedAt),
                                     ),
                                     style: TextStyle(
-                                      color:
-                                          GlobalVariables.selectedNavBarColor,
-                                    ),
+                                        color: const Color.fromRGBO(
+                                            0, 0, 0, 0.75)),
                                   ),
                                 ),
                               ],
@@ -168,14 +157,10 @@ class _OrdersState extends State<Orders> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                  ),
+                                  padding: const EdgeInsets.only(),
                                   child: const Text(
                                     'Total Amount :',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                    style: TextStyle(color: Colors.black87),
                                   ),
                                 ),
                                 Container(
@@ -185,9 +170,8 @@ class _OrdersState extends State<Orders> {
                                   child: Text(
                                     '₹ ${orders![index].totalPrice}',
                                     style: TextStyle(
-                                      color:
-                                          GlobalVariables.selectedNavBarColor,
-                                    ),
+                                        color: const Color.fromRGBO(
+                                            0, 0, 0, 0.75)),
                                   ),
                                 ),
                               ],
@@ -196,14 +180,10 @@ class _OrdersState extends State<Orders> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                  ),
+                                  padding: const EdgeInsets.only(),
                                   child: const Text(
                                     'Last Update :',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                    style: TextStyle(color: Colors.black87),
                                   ),
                                 ),
                                 Container(
@@ -215,14 +195,9 @@ class _OrdersState extends State<Orders> {
                                         DateTime.fromMillisecondsSinceEpoch(
                                             orders![index].lastUpdate)),
                                     style: TextStyle(
-                                      color:
-                                          GlobalVariables.selectedNavBarColor,
-                                    ),
+                                        color: const Color.fromRGBO(
+                                            0, 0, 0, 0.75)),
                                   ),
-
-                                  // child: Text(
-                                  //   '${DateTime.fromMillisecondsSinceEpoch(orders![index].lastUpdate)}',
-                                  // ),
                                 ),
                               ],
                             ),

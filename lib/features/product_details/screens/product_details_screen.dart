@@ -201,7 +201,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   addToCart();
                   navigateToCartScreen();
                 },
-                color: const Color.fromARGB(255, 255, 237, 147),
               ),
             ),
             const SizedBox(height: 8),
@@ -225,7 +224,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       backgroundColor: GlobalVariables.backgroundColor,
       iconSize: 28,
       onTap: (index) {
-          performTap(index);
+        performTap(index);
       },
       items: [
         // HOME

@@ -212,7 +212,13 @@ class _AddressScreenState extends State<AddressScreen> {
                             {showSnackBar(context, 'Select Product!')},
                           }
                       },
-                  child: const Text("Place Order"))
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Place Order",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ))
             ],
           ),
         ),
